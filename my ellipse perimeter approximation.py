@@ -1,30 +1,28 @@
 import math
 from matplotlib import pyplot
 def calculate_user_ellipse():
-    print("ellipser-thing calculation")
+    print("ellipser perimeter calculation V2.0")
     try:
-        a = float(input("yo! enter semi-major axis (a): "))
-        b = float(input("and enter semi-minor axis (b): "))
+        a = float(input("Enter semi-major axis (a): "))
+        b = float(input("enter semi-minor axis (b): "))
     except ValueError:
         print("pls enter valid numbers.")
         return
-
-    # convert to absolute values to handle negative inputs safely
     a, b = abs(a), abs(b)
 
     if a == 0 and b == 0:
         print("\ncalculated estimation: 0.0\nofficial infinite series sum: 0.0")
         return
 
-    # my formula est. thats shiitake mushrooms (allegedly and supposedly worse or better lets see)
+    # my formula est. thats IS PROBABLY better than most
     h = ((a - b) / (a + b)) ** 2
-    my_estimation = math.pi * (a + b) * ((32 + 9.5*h + 1.1*h**2) / (32 + 1.54*h - 0.05*h**2))
+    my_estimation = math.pi * (a + b) * ((32 - 15.30997409*h - 4.07183635*h**2) / (32 - 23.3029129*h + 1.21333601*h**2))
 
-    # actual infinite series, or rather its very good approximation
+    # simulated infinite series
     series_sum = 1.0
     term = 1.0
     for n in range(1, 1000):
-        # *hopfully* accruate enough
+        # most liekly accurate enough
         term *= h * ((2 * n - 3) / (2 * n)) ** 2 if n > 1 else (h / 4)
         series_sum += term
 
